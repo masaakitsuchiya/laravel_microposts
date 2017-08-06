@@ -28,7 +28,7 @@
                 
                 {!! Form::submit('Sign up', ['class' => 'btn btn-primary btn-block']) !!}
                 
-            {!! Form::clase() !!}
+            {!! Form::close() !!}
             
         </div>
     </div>

@@ -15,16 +15,13 @@
                 </div>
                 <div class="form-group">
                     {!! Form::label('password', 'Password') !!}
-                    {!! Form::email('password', old('password'), ['class' => 'form-control']) !!}
+                    {!! Form::password('password', old('password'), ['class' => 'form-control']) !!}
                 </div>
                 {!! Form::submit('Log in', ['class' => 'btn btn-primary btn-block']) !!}
                 
-                {!! From::close() !!}
-                
+            {!! Form::close() !!}
                 
                 <p>New user? {!! link_to_route('signup.get', 'Sign up now!') !!}</p>
-            
-            
         </div>
     </div>
 @endsection
