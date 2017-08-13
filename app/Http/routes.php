@@ -20,19 +20,16 @@ Route::get('login', 'Auth\AuthController@getLogin')->name('login.get');
 Route::post('login', 'Auth\AuthController@postLogin')->name('login.post');
 Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::resource('users', 'UsersController', ["only" =>['index','show']]);
-    Route::group(['prefix' => 'users/{id}'], function(){
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
+    Route::group(['prefix' => 'users/{id}'], function () { 
         Route::post('follow', 'UserFollowController@store')->name('user.follow');
         Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
         Route::get('followings', 'UsersController@followings')->name('users.followings');
         Route::get('followers', 'UsersController@followers')->name('users.followers');
-        Route::get('favorite_microposts', 'UsersController@favorite_microposts')->name('favorite_microposts');
     });
-    
-    Route::resource('microposts', 'MicropostsController', ['only' => ['store','destroy']]);
-    Route::group(['prefx' => 'micropost/{id}'],function(){
-        Route::post('like', 'FavoriteMicropostController@store')->name('micropost.like');
-        Route::delete('unlike', 'FavoriteMicropostController@destroy')->name('micropost.unlike');
-        });
+    Route::get('favorite_microposts', 'UsersController@favorite_microposts')->name('favorite_microposts');
+    Route::resource('microposts', 'MicropostsController', ['only' => ['store', 'destroy']]);
+    Route::post('microposts/{id}/like', 'FavoriteMicropostController@store')->name('micropost.like');
+    Route::delete('microposts/{id}/unlike', 'FavoriteMicropostController@destroy')->name('micropost.unlike');
 });

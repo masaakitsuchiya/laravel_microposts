@@ -133,5 +133,12 @@ class UsersController extends Controller
         
         return view('users.followers', $data);
     }
+    public function favorite_microposts()
+    {
+        $user = \Auth::user();
+        $favorite_microposts = $user->favorite_microposts()->orderBy('created_at', 'desc');
+        
+        return view('users.favorite_microposts',$favorite_microposts);
+    }
     
 }
