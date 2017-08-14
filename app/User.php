@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
-
+use App\Micropost;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -103,6 +103,12 @@ class User extends Model implements AuthenticatableContract,
     public function favorite_microposts()
     {
         return $this->belongsToMany(Micropost::class, 'favorite_micropost', 'user_id', 'micropost_id')->withTimestamps();
+    }
+    
+    public function get_favorite_microposts()
+    {
+        $favorite_micropost_ids = $this->favorite_microposts()->lists('microposts.id')->toArray();
+        return Micropost::whereIn('id',$favorite_micropost_ids);
     }
     
     public function like($micropostId)

@@ -135,10 +135,17 @@ class UsersController extends Controller
     }
     public function favorite_microposts()
     {
-        $user = \Auth::user();
-        $favorite_microposts = $user->favorite_microposts()->orderBy('created_at', 'desc');
-        
-        return view('users.favorite_microposts',$favorite_microposts);
+        $data =  [];
+        if(\Auth::check()){
+            $user = \Auth::user();
+            $microposts = $user->get_favorite_microposts()->orderBy('created_at','desk')->paginate(10);
+            
+            $data = [
+            'user' => $user,
+            'microposts' => $microposts,
+            ];
+        }
+        return view('users.favorite_microposts',$data);
     }
     
 }

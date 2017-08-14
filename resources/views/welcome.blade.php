@@ -8,8 +8,11 @@
                 <div class="form-group">
                     {!! Form::textarea('content', old('content'), ['class' => 'form-control', 'rows' => '5']) !!}
                 </div>
-                {!! Form::submit('Post', ['class' => 'btn btn-primary btn block']) !!}
+                {!! Form::submit('Post', ['class' => 'btn btn-primary btn-block']) !!}
                 {!! Form::close() !!}
+                <p>
+                {!! link_to_route('favorite_microposts', 'Liked Posts', null, ['class' => 'btn btn-info btn-block']) !!}
+                </p>
             </aside>
             <div class="col-md-8">
                 @if (count($microposts) > 0)
